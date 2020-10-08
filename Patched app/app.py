@@ -18,7 +18,6 @@ def index():
         
         user = details['user']
         password = details['pass']
-        
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE user = %(username)s AND pass = %(password)s", {'username': user,'password': password})
         
