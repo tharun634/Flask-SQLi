@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 from flask_mysqldb import MySQL
 app = Flask(__name__)
 
-
+#config of the DB
 app.config['MYSQL_HOST'] = 'localhost'
 app.config['MYSQL_USER'] = 'root'
 app.config['MYSQL_PASSWORD'] = ''
@@ -16,12 +16,15 @@ def index():
     if request.method == "POST":
         details = request.form
         
+        #retriving details from the form
         user = details['user']
         password = details['pass']
+        
+        #creating a DB connection
         cur = mysql.connection.cursor()
         cur.execute("SELECT * FROM users WHERE user = %(username)s AND pass = %(password)s", {'username': user,'password': password})
-        
         account = cur.fetchone()
+        
         if account:
             return 'Logged in successfully'
         else:
